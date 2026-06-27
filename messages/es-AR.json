@@ -96,7 +96,12 @@
     "resolutionRateDesc": "Porcentaje de mensajes respondidos automáticamente sin intervención.",
     "history": "Historial de uso",
     "noUsageData": "No hay datos de uso para este período.",
-    "errorLoading": "Error al cargar la información de facturación."
+    "errorLoading": "Error al cargar la información de facturación.",
+    "paywallTitle": "Activá tu plan",
+    "paywallDesc": "Ya viste cómo responde solo. Para que siga sin límite, activá tu plan.",
+    "payMercadoPago": "Pagar con Mercado Pago",
+    "payCard": "Pagar con tarjeta",
+    "freeLeft": "Te quedan {n} respuestas gratis."
   },
   "Common": {
     "loading": "Cargando...",

@@ -118,6 +118,17 @@ describe('BillingView', () => {
     });
   });
 
+  it('muestra el paywall y paga con Mercado Pago', async () => {
+    mockGetBilling.mockResolvedValue(
+      makeBillingInfo({ paywall: { freeLimit: 5, totalResponses: 5, freeResponsesLeft: 0, requiresPayment: true } }),
+    );
+    const { Wrapper } = createWrapper();
+    render(<BillingView />, { wrapper: Wrapper });
+    await waitFor(() => screen.getByText('paywallTitle'));
+    await userEvent.click(screen.getByRole('button', { name: 'payMercadoPago' }));
+    await waitFor(() => expect(mockCreateCheckout).toHaveBeenCalledWith('mercadopago'));
+  });
+
   it('shows responses_sent stat', async () => {
     const { Wrapper } = createWrapper();
     render(<BillingView />, { wrapper: Wrapper });

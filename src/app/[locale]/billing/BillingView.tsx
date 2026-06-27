@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { getBilling, createCheckout } from '@/lib/api';
-import type { UsageCounter } from '@/lib/types';
+import type { PaymentProvider } from '@/lib/types';
 import { AppShell } from '@/components/layout/AppShell';
 import { Button } from '@/components/ui/Button';
 import { LoadingPage } from '@/components/ui/LoadingSpinner';
@@ -60,7 +60,7 @@ export function BillingView() {
   });
 
   const checkoutMutation = useMutation({
-    mutationFn: createCheckout,
+    mutationFn: (provider: PaymentProvider) => createCheckout(provider),
     onSuccess: (data) => {
       if (data.url) {
         window.open(data.url, '_blank', 'noopener,noreferrer');
@@ -68,17 +68,31 @@ export function BillingView() {
     },
   });
 
-  const handleCheckout = async () => {
+  const pay = async (provider: PaymentProvider) => {
     setCheckoutLoading(true);
     try {
-      await checkoutMutation.mutateAsync();
+      await checkoutMutation.mutateAsync(provider);
     } finally {
       setCheckoutLoading(false);
     }
   };
 
-  // Get current period (most recent)
-  const currentPeriod: UsageCounter | undefined = billing?.usage_counters?.[0];
+  // Período actual a partir de la forma real del backend (billing.usage).
+  const u = billing?.usage;
+  const currentPeriod = u
+    ? {
+        period: billing?.period ?? '',
+        responses_sent: u.responsesSent,
+        cache_hits: u.cacheHits,
+        llm_calls: u.llmCalls,
+        escalations: u.escalations,
+      }
+    : undefined;
+  const resolutionPct =
+    billing?.resolvedWithoutHumanRate != null
+      ? Math.round(billing.resolvedWithoutHumanRate * 100)
+      : null;
+  const paywall = billing?.paywall;
 
   return (
     <AppShell>
@@ -97,6 +111,25 @@ export function BillingView() {
 
         {!isLoading && !isError && (
           <div className="flex flex-col gap-6">
+            {/* Paywall (§17): primeras N respuestas gratis, luego activar plan */}
+            {paywall?.requiresPayment && (
+              <div
+                role="alert"
+                className="bg-[var(--color-violet-light)] border border-[var(--color-violet)] rounded-[var(--radius-lg)] p-6"
+              >
+                <h2 className="font-bold text-[var(--text-primary)] mb-1">{t('paywallTitle')}</h2>
+                <p className="text-sm text-[var(--text-secondary)] mb-4">{t('paywallDesc')}</p>
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <Button onClick={() => pay('mercadopago')} loading={checkoutLoading}>
+                    {t('payMercadoPago')}
+                  </Button>
+                  <Button onClick={() => pay('creem')} loading={checkoutLoading} variant="outline">
+                    {t('payCard')}
+                  </Button>
+                </div>
+              </div>
+            )}
+
             {/* Current plan */}
             <div className="bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-[var(--radius-lg)] p-6">
               <div className="flex items-center justify-between mb-4">
@@ -105,8 +138,13 @@ export function BillingView() {
                 </h2>
                 <PlanBadge plan={billing?.plan ?? 'free'} />
               </div>
+              {paywall && (
+                <p className="text-sm text-[var(--text-muted)] mb-3">
+                  {t('freeLeft', { n: paywall.freeResponsesLeft })}
+                </p>
+              )}
               <Button
-                onClick={handleCheckout}
+                onClick={() => pay('creem')}
                 loading={checkoutLoading}
                 variant="outline"
                 size="sm"
@@ -146,19 +184,15 @@ export function BillingView() {
                   />
                 </div>
 
-                {/* Resolution rate */}
-                {currentPeriod.responses_sent > 0 && (
+                {/* Resolution rate (métrica que aprueba el proyecto) */}
+                {resolutionPct != null && (
                   <div className="mt-4 pt-4 border-t border-[var(--border-color)]">
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-[var(--text-secondary)]">
                         {t('resolutionRate')}
                       </span>
                       <span className="text-lg font-bold text-[var(--color-green)]">
-                        {Math.round(
-                          ((currentPeriod.responses_sent - currentPeriod.escalations) /
-                            currentPeriod.responses_sent) *
-                            100
-                        )}%
+                        {resolutionPct}%
                       </span>
                     </div>
                     <p className="text-xs text-[var(--text-muted)] mt-1">

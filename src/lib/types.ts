@@ -69,11 +69,31 @@ export interface UsageCounter {
   escalations: number;
 }
 
+export interface PaywallStatus {
+  freeLimit: number;
+  totalResponses: number;
+  freeResponsesLeft: number;
+  requiresPayment: boolean;
+}
+
+// Forma real que devuelve el backend (GET /billing).
 export interface BillingInfo {
   plan: string;
-  usage_counters: UsageCounter[];
+  period?: string;
+  usage?: {
+    responsesSent: number;
+    cacheHits: number;
+    llmCalls: number;
+    escalations: number;
+  };
+  resolvedWithoutHumanRate?: number | null;
+  paywall?: PaywallStatus;
+  // Legacy (compat): el backend ya no lo devuelve, queda opcional.
+  usage_counters?: UsageCounter[];
   checkout_url?: string;
 }
+
+export type PaymentProvider = 'creem' | 'mercadopago';
 
 // Chat message types for the assistant
 export interface ChatMessage {

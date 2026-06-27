@@ -68,19 +68,14 @@ export function makeMessage(overrides = {}) {
   };
 }
 
-// Helper for billing data
+// Helper for billing data (forma real del backend GET /billing)
 export function makeBillingInfo(overrides = {}) {
   return {
     plan: 'free',
-    usage_counters: [
-      {
-        period: '2024-01',
-        responses_sent: 100,
-        cache_hits: 70,
-        llm_calls: 25,
-        escalations: 5,
-      },
-    ],
+    period: '2024-01',
+    usage: { responsesSent: 100, cacheHits: 70, llmCalls: 25, escalations: 5 },
+    resolvedWithoutHumanRate: 0.95,
+    paywall: { freeLimit: 5, totalResponses: 3, freeResponsesLeft: 2, requiresPayment: false },
     ...overrides,
   };
 }

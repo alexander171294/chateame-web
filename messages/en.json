@@ -96,7 +96,12 @@
     "resolutionRateDesc": "Percentage of messages automatically handled without human intervention.",
     "history": "Usage history",
     "noUsageData": "No usage data for this period.",
-    "errorLoading": "Error loading billing information."
+    "errorLoading": "Error loading billing information.",
+    "paywallTitle": "Activate your plan",
+    "paywallDesc": "You saw it answer on its own. To keep it going without limits, activate your plan.",
+    "payMercadoPago": "Pay with Mercado Pago",
+    "payCard": "Pay with card",
+    "freeLeft": "{n} free responses left."
   },
   "Common": {
     "loading": "Loading...",

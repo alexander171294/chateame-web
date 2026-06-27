@@ -13,6 +13,7 @@ import type {
   AssistantChatResponse,
   OnboardingSeedResponse,
   PreviewResult,
+  PaymentProvider,
 } from './types';
 
 const BASE_URL =
@@ -142,9 +143,10 @@ export async function getBilling(): Promise<BillingInfo> {
   return apiFetch<BillingInfo>('/billing');
 }
 
-export async function createCheckout(): Promise<{ url: string }> {
+export async function createCheckout(provider?: PaymentProvider): Promise<{ url: string }> {
   return apiFetch<{ url: string }>('/billing/checkout', {
     method: 'POST',
+    body: JSON.stringify({ provider: provider ?? 'creem' }),
   });
 }
 
