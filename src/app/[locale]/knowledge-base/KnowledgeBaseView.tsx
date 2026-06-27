@@ -236,7 +236,8 @@ export function KnowledgeBaseView() {
   }, [account]);
 
   const createMutation = useMutation({
-    mutationFn: createFaq,
+    // Envolver para no filtrar el context de TanStack como 2º argumento.
+    mutationFn: (data: Parameters<typeof createFaq>[0]) => createFaq(data),
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: ['faqs'] });
       setAddingFaq(false);
@@ -250,7 +251,7 @@ export function KnowledgeBaseView() {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: deleteFaq,
+    mutationFn: (id: string) => deleteFaq(id),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['faqs'] }),
   });
 
