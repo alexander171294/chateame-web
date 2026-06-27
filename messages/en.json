@@ -1,0 +1,119 @@
+{
+  "Meta": {
+    "title": "Chateame — Auto-reply to your DMs",
+    "description": "Connect Instagram and Facebook in 3 taps. Your AI assistant automatically replies to repetitive messages."
+  },
+  "Connect": {
+    "title": "Auto-reply to your DMs",
+    "subtitle": "Connect your social accounts and start replying effortlessly. No signup, no forms.",
+    "connectInstagram": "Connect Instagram",
+    "connectFacebook": "Connect Facebook",
+    "connectWhatsApp": "Connect WhatsApp",
+    "whatsappTooltip": "Coming soon · available in the assisted plan",
+    "comingSoon": "Coming soon",
+    "noSignupRequired": "No signup required. Login IS the connection. Your data stays protected.",
+    "metaTitle": "Chateame — Auto-reply to your DMs",
+    "metaDescription": "Connect Instagram and Facebook in 3 taps. Your AI assistant automatically replies to repetitive messages."
+  },
+  "Nav": {
+    "conversations": "Conversations",
+    "knowledgeBase": "Knowledge Base",
+    "billing": "Billing",
+    "settings": "Settings"
+  },
+  "Onboarding": {
+    "greeting": "Hello! Let's set up automatic replies for your business. Based on your profile, I've prepared some frequently asked questions for you to review and adjust.",
+    "proposedFaqs": "Suggested frequently asked questions:",
+    "question": "Question",
+    "answer": "Answer",
+    "editFaq": "Edit",
+    "saveFaq": "Save",
+    "cancelEdit": "Cancel",
+    "activateResponses": "Activate automatic replies",
+    "activeDescription": "Your assistant is replying to messages automatically.",
+    "inactiveDescription": "Automatic replies are turned off.",
+    "chatPlaceholder": "Type to modify FAQs or ask the assistant questions...",
+    "noFaqs": "No FAQs yet. You can add one from the knowledge base.",
+    "errorMessage": "There was an error processing your message. Please try again.",
+    "loadingFaqs": "Loading frequently asked questions..."
+  },
+  "Conversations": {
+    "title": "Conversations",
+    "empty": "No conversations yet",
+    "noMessages": "No messages in this conversation",
+    "handledBy": "Handled by",
+    "handledByHuman": "Human",
+    "pending": "Pending",
+    "answered": "Answered",
+    "dismissed": "Dismissed",
+    "answerEscalation": "Reply",
+    "yourAnswer": "Your reply...",
+    "escalationPending": "Pending escalation — this question needs your reply",
+    "errorLoading": "Error loading conversations. Check your connection.",
+    "backToList": "Back",
+    "selectConversation": "Select a conversation to view messages"
+  },
+  "KnowledgeBase": {
+    "title": "Knowledge Base",
+    "addFaq": "Add FAQ",
+    "question": "Question",
+    "answer": "Answer",
+    "questionPlaceholder": "What is the frequently asked question?",
+    "answerPlaceholder": "What is the answer?",
+    "systemPrompt": "System Prompt",
+    "basePrompt": "Base instructions (read-only)",
+    "dynamicPrompt": "Custom instructions",
+    "dynamicPromptPlaceholder": "Add instructions to customize how your assistant responds...",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "empty": "No FAQs yet. Add the first one.",
+    "confirmDelete": "Are you sure you want to delete this FAQ?",
+    "edited": "Edited",
+    "manual": "Manual",
+    "errorLoading": "Error loading knowledge base"
+  },
+  "Billing": {
+    "title": "Billing",
+    "currentPlan": "Current plan",
+    "usage": "Period usage",
+    "responsesSent": "Responses sent",
+    "cacheHits": "Cache hits",
+    "llmCalls": "LLM calls",
+    "escalations": "Escalations",
+    "checkout": "Upgrade plan",
+    "period": "Period",
+    "resolutionRate": "% Resolved without human",
+    "resolutionRateDesc": "Percentage of messages automatically handled without human intervention.",
+    "history": "Usage history",
+    "noUsageData": "No usage data for this period.",
+    "errorLoading": "Error loading billing information."
+  },
+  "Common": {
+    "loading": "Loading...",
+    "error": "Error loading",
+    "retry": "Retry",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "send": "Send",
+    "active": "Active",
+    "inactive": "Inactive",
+    "activate": "Activate",
+    "deactivate": "Deactivate",
+    "chatPlaceholder": "Type a message..."
+  },
+  "Theme": {
+    "toggleLight": "Switch to light mode",
+    "toggleDark": "Switch to dark mode"
+  },
+  "Language": {
+    "select": "Language",
+    "esAR": "Spanish (Argentina)",
+    "es": "Spanish",
+    "en": "English",
+    "ptBR": "Portuguese (Brazil)"
+  }
+}

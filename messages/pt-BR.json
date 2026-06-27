@@ -1,0 +1,119 @@
+{
+  "Meta": {
+    "title": "Chateame — Responda suas DMs automaticamente",
+    "description": "Conecte Instagram e Facebook em 3 toques. Seu assistente de IA responde automaticamente às mensagens repetitivas."
+  },
+  "Connect": {
+    "title": "Responda suas DMs automaticamente",
+    "subtitle": "Conecte suas redes e comece a responder sem esforço. Sem cadastro, sem formulários.",
+    "connectInstagram": "Conectar Instagram",
+    "connectFacebook": "Conectar Facebook",
+    "connectWhatsApp": "Conectar WhatsApp",
+    "whatsappTooltip": "Em breve · disponível no plano com assistência",
+    "comingSoon": "Em breve",
+    "noSignupRequired": "Sem cadastro. O login É a conexão. Seus dados ficam protegidos.",
+    "metaTitle": "Chateame — Responda suas DMs automaticamente",
+    "metaDescription": "Conecte Instagram e Facebook em 3 toques. Seu assistente de IA responde automaticamente às mensagens repetitivas."
+  },
+  "Nav": {
+    "conversations": "Conversas",
+    "knowledgeBase": "Base de conhecimento",
+    "billing": "Faturamento",
+    "settings": "Configurações"
+  },
+  "Onboarding": {
+    "greeting": "Olá! Vamos configurar as respostas automáticas para o seu negócio. Com base no seu perfil, preparei algumas perguntas frequentes para você revisar e ajustar.",
+    "proposedFaqs": "Perguntas frequentes sugeridas:",
+    "question": "Pergunta",
+    "answer": "Resposta",
+    "editFaq": "Editar",
+    "saveFaq": "Salvar",
+    "cancelEdit": "Cancelar",
+    "activateResponses": "Ativar respostas automáticas",
+    "activeDescription": "Seu assistente está respondendo mensagens automaticamente.",
+    "inactiveDescription": "As respostas automáticas estão desativadas.",
+    "chatPlaceholder": "Digite para modificar as FAQs ou fazer perguntas ao assistente...",
+    "noFaqs": "Ainda não há FAQs. Você pode adicionar uma na base de conhecimento.",
+    "errorMessage": "Houve um erro ao processar sua mensagem. Por favor, tente novamente.",
+    "loadingFaqs": "Carregando perguntas frequentes..."
+  },
+  "Conversations": {
+    "title": "Conversas",
+    "empty": "Ainda não há conversas",
+    "noMessages": "Não há mensagens nesta conversa",
+    "handledBy": "Respondido por",
+    "handledByHuman": "Humano",
+    "pending": "Pendente",
+    "answered": "Respondido",
+    "dismissed": "Descartado",
+    "answerEscalation": "Responder",
+    "yourAnswer": "Sua resposta...",
+    "escalationPending": "Escalonamento pendente — esta pergunta precisa da sua resposta",
+    "errorLoading": "Erro ao carregar as conversas. Verifique sua conexão.",
+    "backToList": "Voltar",
+    "selectConversation": "Selecione uma conversa para ver as mensagens"
+  },
+  "KnowledgeBase": {
+    "title": "Base de conhecimento",
+    "addFaq": "Adicionar FAQ",
+    "question": "Pergunta",
+    "answer": "Resposta",
+    "questionPlaceholder": "Qual é a pergunta frequente?",
+    "answerPlaceholder": "Qual é a resposta?",
+    "systemPrompt": "System Prompt",
+    "basePrompt": "Instruções base (somente leitura)",
+    "dynamicPrompt": "Instruções personalizadas",
+    "dynamicPromptPlaceholder": "Adicione instruções para personalizar como seu assistente responde...",
+    "save": "Salvar",
+    "delete": "Excluir",
+    "edit": "Editar",
+    "empty": "Ainda não há FAQs. Adicione a primeira.",
+    "confirmDelete": "Tem certeza que deseja excluir esta FAQ?",
+    "edited": "Editada",
+    "manual": "Manual",
+    "errorLoading": "Erro ao carregar a base de conhecimento"
+  },
+  "Billing": {
+    "title": "Faturamento",
+    "currentPlan": "Plano atual",
+    "usage": "Uso do período",
+    "responsesSent": "Respostas enviadas",
+    "cacheHits": "Acertos de cache",
+    "llmCalls": "Chamadas ao LLM",
+    "escalations": "Escalonamentos",
+    "checkout": "Atualizar plano",
+    "period": "Período",
+    "resolutionRate": "% Resolvido sem humano",
+    "resolutionRateDesc": "Porcentagem de mensagens respondidas automaticamente sem intervenção humana.",
+    "history": "Histórico de uso",
+    "noUsageData": "Sem dados de uso para este período.",
+    "errorLoading": "Erro ao carregar as informações de faturamento."
+  },
+  "Common": {
+    "loading": "Carregando...",
+    "error": "Erro ao carregar",
+    "retry": "Tentar novamente",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "delete": "Excluir",
+    "edit": "Editar",
+    "close": "Fechar",
+    "send": "Enviar",
+    "active": "Ativo",
+    "inactive": "Inativo",
+    "activate": "Ativar",
+    "deactivate": "Desativar",
+    "chatPlaceholder": "Digite uma mensagem..."
+  },
+  "Theme": {
+    "toggleLight": "Mudar para modo claro",
+    "toggleDark": "Mudar para modo escuro"
+  },
+  "Language": {
+    "select": "Idioma",
+    "esAR": "Espanhol (Argentina)",
+    "es": "Espanhol",
+    "en": "Inglês",
+    "ptBR": "Português (Brasil)"
+  }
+}
