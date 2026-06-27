@@ -11,6 +11,8 @@ import { ChatInput } from '@/components/chat/ChatInput';
 import { Switch } from '@/components/ui/Switch';
 import { Button } from '@/components/ui/Button';
 import { LoadingPage } from '@/components/ui/LoadingSpinner';
+import { PreviewSimulator } from '@/components/chat/PreviewSimulator';
+import { ReferralShare } from '@/components/layout/ReferralShare';
 
 function FaqCard({
   faq,
@@ -257,6 +259,9 @@ export function OnboardingView() {
           <div ref={messagesEndRef} />
         </div>
 
+        {/* GL1: simulador "probá tu asistente" (aha antes de activar) */}
+        <PreviewSimulator />
+
         {/* Activate switch */}
         <div className="bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-[var(--radius-lg)] p-4">
           <div className="flex items-center justify-between gap-4">
@@ -274,6 +279,11 @@ export function OnboardingView() {
               disabled={activating}
               id="responses-active"
             />
+          </div>
+          {/* GL3: invitar a otro negocio (referral) */}
+          <div className="mt-3 pt-3 border-t border-[var(--border-color)] flex items-center justify-between gap-2">
+            <span className="text-sm text-[var(--text-muted)]">{t('referralPrompt')}</span>
+            <ReferralShare />
           </div>
         </div>
 

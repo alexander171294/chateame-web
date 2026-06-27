@@ -92,6 +92,14 @@ export interface AssistantToolCall {
   result?: unknown;
 }
 
+// GL1: resultado del simulador "probá tu asistente"
+export interface PreviewResult {
+  source: 'cache' | 'llm' | 'escalate';
+  answer: string | null;
+  confidence: number | null;
+  willRespond: boolean;
+}
+
 // API error type
 export interface ApiError {
   message: string;

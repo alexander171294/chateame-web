@@ -10,6 +10,8 @@ vi.mock('@/lib/api', () => ({
   updateFaq: vi.fn(),
   updateAccount: vi.fn(),
   assistantChat: vi.fn(),
+  previewAssistant: vi.fn().mockResolvedValue({ source: 'cache', answer: 'x', confidence: 1, willRespond: true }),
+  getAccount: vi.fn().mockResolvedValue({ id: 'acc-1', plan: 'free' }),
 }));
 
 vi.mock('@/i18n/routing', () => ({
@@ -118,7 +120,7 @@ describe('OnboardingView', () => {
     const { Wrapper } = createWrapper();
     render(<OnboardingView />, { wrapper: Wrapper });
     await waitFor(() => {
-      expect(screen.getByRole('textbox')).toBeInTheDocument();
+      expect(screen.getByLabelText('chatPlaceholder')).toBeInTheDocument();
     });
   });
 
@@ -126,9 +128,9 @@ describe('OnboardingView', () => {
     mockAssistantChat.mockResolvedValue({ message: 'Great question!' });
     const { Wrapper } = createWrapper();
     render(<OnboardingView />, { wrapper: Wrapper });
-    await waitFor(() => screen.getByRole('textbox'));
+    await waitFor(() => screen.getByLabelText('chatPlaceholder'));
 
-    await userEvent.type(screen.getByRole('textbox'), 'Hello assistant');
+    await userEvent.type(screen.getByLabelText('chatPlaceholder'), 'Hello assistant');
     await userEvent.click(screen.getByRole('button', { name: 'send' }));
 
     await waitFor(() => {
@@ -140,9 +142,9 @@ describe('OnboardingView', () => {
     mockAssistantChat.mockRejectedValue(new Error('Network error'));
     const { Wrapper } = createWrapper();
     render(<OnboardingView />, { wrapper: Wrapper });
-    await waitFor(() => screen.getByRole('textbox'));
+    await waitFor(() => screen.getByLabelText('chatPlaceholder'));
 
-    await userEvent.type(screen.getByRole('textbox'), 'Hello');
+    await userEvent.type(screen.getByLabelText('chatPlaceholder'), 'Hello');
     await userEvent.click(screen.getByRole('button', { name: 'send' }));
 
     await waitFor(() => {

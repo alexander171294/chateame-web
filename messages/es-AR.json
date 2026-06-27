@@ -35,7 +35,16 @@
     "chatPlaceholder": "Escribí para modificar las FAQs o hacerle preguntas al asistente...",
     "noFaqs": "No hay FAQs todavía. Podés agregar una desde la base de conocimiento.",
     "errorMessage": "Hubo un error al procesar tu mensaje. Por favor intentá de nuevo.",
-    "loadingFaqs": "Cargando preguntas frecuentes..."
+    "loadingFaqs": "Cargando preguntas frecuentes...",
+    "tryTitle": "Probá tu asistente",
+    "tryDescription": "Escribí una pregunta como la haría un cliente y mirá cómo respondería.",
+    "tryPlaceholder": "Ej: ¿Hacen envíos?",
+    "trySend": "Probar",
+    "tryResultCache": "Respondido al instante",
+    "tryResultLlm": "Respondido por IA",
+    "tryWillEscalate": "Esta no la sé, te la dejo a vos (se escala).",
+    "tryError": "No se pudo probar ahora. Reintentá.",
+    "referralPrompt": "¿Conocés a otro negocio así?"
   },
   "Conversations": {
     "title": "Conversaciones",
@@ -115,5 +124,11 @@
     "es": "Español",
     "en": "English",
     "ptBR": "Português (Brasil)"
+  },
+  "Referral": {
+    "button": "Invitar",
+    "copied": "¡Link copiado!",
+    "shareTitle": "chateame",
+    "shareText": "Tu negocio responde solo las preguntas repetidas. Probalo:"
   }
 }

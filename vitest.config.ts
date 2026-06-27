@@ -34,10 +34,6 @@ export default defineConfig({
     setupFiles: ['./src/test/setup.ts'],
     include: ['src/**/*.test.{ts,tsx}'],
     testTimeout: 15000,
-    // Un solo fork serializa los archivos: evita el "worker exited unexpectedly"
-    // por contención entre forks de jsdom (a costa de algo de velocidad).
-    pool: 'forks',
-    poolOptions: { forks: { singleFork: true } },
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json-summary', 'html'],

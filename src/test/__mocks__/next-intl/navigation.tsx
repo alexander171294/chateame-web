@@ -1,4 +1,5 @@
 import React from 'react';
+import { vi } from 'vitest';
 
 // Mock navigation exports used by @/i18n/navigation
 export const useRouter = () => ({

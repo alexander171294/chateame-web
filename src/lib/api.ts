@@ -12,6 +12,7 @@ import type {
   ChatMessage,
   AssistantChatResponse,
   OnboardingSeedResponse,
+  PreviewResult,
 } from './types';
 
 const BASE_URL =
@@ -155,5 +156,13 @@ export async function assistantChat(
   return apiFetch<AssistantChatResponse>('/assistant/chat', {
     method: 'POST',
     body: JSON.stringify({ messages }),
+  });
+}
+
+// GL1: "probá tu asistente" — corre la decisión read-only (no envía a Meta).
+export async function previewAssistant(message: string): Promise<PreviewResult> {
+  return apiFetch<PreviewResult>('/assistant/preview', {
+    method: 'POST',
+    body: JSON.stringify({ message }),
   });
 }

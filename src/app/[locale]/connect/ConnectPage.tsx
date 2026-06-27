@@ -36,6 +36,15 @@ function WhatsAppIcon() {
 export function ConnectPage() {
   const t = useTranslations('Connect');
 
+  // GL3 referral: capturar ?ref de la URL y propagarlo al inicio de OAuth.
+  const [ref, setRef] = React.useState<string | null>(null);
+  React.useEffect(() => {
+    const r = new URLSearchParams(window.location.search).get('ref');
+    if (r) setRef(r);
+  }, []);
+  const startUrl = (platform: string) =>
+    `${API_URL}/auth/meta/${platform}/start${ref ? `?ref=${encodeURIComponent(ref)}` : ''}`;
+
   return (
     <AppShell showNav={false}>
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-12 md:py-20">
@@ -61,7 +70,7 @@ export function ConnectPage() {
         <div className="w-full max-w-sm flex flex-col gap-3">
           {/* Instagram */}
           <a
-            href={`${API_URL}/auth/meta/instagram/start`}
+            href={startUrl('instagram')}
             className={[
               'flex items-center justify-center gap-3',
               'w-full px-6 py-4 rounded-[var(--radius-lg)]',
@@ -81,7 +90,7 @@ export function ConnectPage() {
 
           {/* Facebook */}
           <a
-            href={`${API_URL}/auth/meta/facebook/start`}
+            href={startUrl('facebook')}
             className={[
               'flex items-center justify-center gap-3',
               'w-full px-6 py-4 rounded-[var(--radius-lg)]',

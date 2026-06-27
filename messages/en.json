@@ -35,7 +35,16 @@
     "chatPlaceholder": "Type to modify FAQs or ask the assistant questions...",
     "noFaqs": "No FAQs yet. You can add one from the knowledge base.",
     "errorMessage": "There was an error processing your message. Please try again.",
-    "loadingFaqs": "Loading frequently asked questions..."
+    "loadingFaqs": "Loading frequently asked questions...",
+    "tryTitle": "Try your assistant",
+    "tryDescription": "Type a question like a customer would and see how it would answer.",
+    "tryPlaceholder": "E.g. Do you ship?",
+    "trySend": "Try",
+    "tryResultCache": "Answered instantly",
+    "tryResultLlm": "Answered by AI",
+    "tryWillEscalate": "I don't know this one — it would be escalated to you.",
+    "tryError": "Couldn't test right now. Try again.",
+    "referralPrompt": "Know another business like this?"
   },
   "Conversations": {
     "title": "Conversations",
@@ -115,5 +124,11 @@
     "es": "Spanish",
     "en": "English",
     "ptBR": "Portuguese (Brazil)"
+  },
+  "Referral": {
+    "button": "Invite",
+    "copied": "Link copied!",
+    "shareTitle": "chateame",
+    "shareText": "Your business auto-answers repetitive questions. Try it:"
   }
 }
