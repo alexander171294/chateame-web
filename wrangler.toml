@@ -4,6 +4,13 @@ compatibility_flags = ["nodejs_compat"]
 main = ".open-next/worker.js"
 assets = { directory = ".open-next/assets", binding = "ASSETS" }
 
+# Custom domains del Worker (CF crea el DNS + rutea). Requiere token con
+# Zone:Workers Routes + DNS sobre minibox.ar.
+routes = [
+  { pattern = "minibox.ar", custom_domain = true },
+  { pattern = "www.minibox.ar", custom_domain = true },
+]
+
 [vars]
 # NEXT_PUBLIC_API_URL must be set in the Cloudflare Pages project environment variables.
 # Production value: https://api.minibox.ar
