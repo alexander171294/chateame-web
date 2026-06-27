@@ -16,7 +16,7 @@ describe('AppHeader', () => {
   it('renders the logo link', () => {
     render(<AppHeader />);
     // The logo Link href="/"
-    const logoLink = screen.getByRole('link', { name: /chateame/i });
+    const logoLink = screen.getByRole('link', { name: /minibox/i });
     expect(logoLink).toBeInTheDocument();
     expect(logoLink).toHaveAttribute('href', '/');
   });

@@ -9,7 +9,7 @@ export function ThemeToggle() {
 
   useEffect(() => {
     // Read persisted preference
-    const stored = localStorage.getItem('chateame-theme');
+    const stored = localStorage.getItem('minibox-theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const dark = stored === 'dark' || (!stored && prefersDark);
     setIsDark(dark);
@@ -20,7 +20,7 @@ export function ThemeToggle() {
     const next = !isDark;
     setIsDark(next);
     document.documentElement.setAttribute('data-theme', next ? 'dark' : 'light');
-    localStorage.setItem('chateame-theme', next ? 'dark' : 'light');
+    localStorage.setItem('minibox-theme', next ? 'dark' : 'light');
   };
 
   return (

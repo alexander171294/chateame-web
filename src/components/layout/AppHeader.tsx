@@ -38,7 +38,7 @@ export function AppHeader({ showNav = true }: AppHeaderProps) {
           </svg>
         </div>
         <span className="font-bold text-lg text-[var(--text-primary)] hidden sm:inline">
-          chateame
+          Minibox
         </span>
       </Link>
 

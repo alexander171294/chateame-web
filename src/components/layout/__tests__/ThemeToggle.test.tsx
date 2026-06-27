@@ -26,7 +26,7 @@ describe('ThemeToggle', () => {
     render(<ThemeToggle />);
     await userEvent.click(screen.getByRole('button'));
     expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
-    expect(localStorage.getItem('chateame-theme')).toBe('dark');
+    expect(localStorage.getItem('minibox-theme')).toBe('dark');
   });
 
   it('changes aria-label to toggleLight after switching to dark', async () => {
@@ -40,11 +40,11 @@ describe('ThemeToggle', () => {
     await userEvent.click(screen.getByRole('button')); // dark
     await userEvent.click(screen.getByRole('button')); // light
     expect(document.documentElement.getAttribute('data-theme')).toBe('light');
-    expect(localStorage.getItem('chateame-theme')).toBe('light');
+    expect(localStorage.getItem('minibox-theme')).toBe('light');
   });
 
   it('reads persisted dark theme from localStorage on mount', async () => {
-    localStorage.setItem('chateame-theme', 'dark');
+    localStorage.setItem('minibox-theme', 'dark');
     await act(async () => {
       render(<ThemeToggle />);
     });
@@ -54,7 +54,7 @@ describe('ThemeToggle', () => {
   });
 
   it('reads persisted light theme from localStorage on mount', async () => {
-    localStorage.setItem('chateame-theme', 'light');
+    localStorage.setItem('minibox-theme', 'light');
     await act(async () => {
       render(<ThemeToggle />);
     });

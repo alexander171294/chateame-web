@@ -10,14 +10,14 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Chateame — Respuestas automáticas para tus DMs',
-    template: '%s | Chateame',
+    default: 'Minibox — Respuestas automáticas para tus DMs',
+    template: '%s | Minibox',
   },
   description: 'Respondé tus DMs de Instagram y Facebook automáticamente. Conectá en 3 taps, configurá con chat, activá.',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? 'https://chateame.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? 'https://minibox.ar'),
   openGraph: {
     type: 'website',
-    siteName: 'Chateame',
+    siteName: 'Minibox',
   },
 };
 

@@ -1,4 +1,4 @@
-// Shared TypeScript types matching chateame-api data model
+// Shared TypeScript types matching minibox-api data model
 
 export interface Channel {
   id: string;

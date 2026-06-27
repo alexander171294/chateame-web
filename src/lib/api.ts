@@ -1,5 +1,5 @@
 /**
- * Typed fetch client for chateame-api.
+ * Typed fetch client for minibox-api.
  * Base URL from NEXT_PUBLIC_API_URL env var (default: http://localhost:3000).
  * Always sends credentials (cookie session).
  */

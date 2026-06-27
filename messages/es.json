@@ -1,6 +1,6 @@
 {
   "Meta": {
-    "title": "Chateame — Responde tus DMs automáticamente",
+    "title": "Minibox — Responde tus DMs automáticamente",
     "description": "Conecta Instagram y Facebook en 3 taps. Tu asistente de IA responde los mensajes repetitivos automáticamente."
   },
   "Connect": {
@@ -12,7 +12,7 @@
     "whatsappTooltip": "Próximamente · disponible en plan con asistencia",
     "comingSoon": "Próximamente",
     "noSignupRequired": "Sin registro. El login ES la conexión. Tus datos quedan protegidos.",
-    "metaTitle": "Chateame — Responde tus DMs automáticamente",
+    "metaTitle": "Minibox — Responde tus DMs automáticamente",
     "metaDescription": "Conecta Instagram y Facebook en 3 taps. Tu asistente de IA responde los mensajes repetitivos automáticamente."
   },
   "Nav": {
@@ -133,7 +133,7 @@
   "Referral": {
     "button": "Invitar",
     "copied": "¡Link copiado!",
-    "shareTitle": "chateame",
+    "shareTitle": "Minibox",
     "shareText": "Tu negocio responde solo las preguntas repetidas. Pruébalo:"
   }
 }
