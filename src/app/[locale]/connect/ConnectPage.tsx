@@ -4,6 +4,7 @@ import React from 'react';
 import { useTranslations } from 'next-intl';
 import { Tooltip } from '@/components/ui/Tooltip';
 import { AppShell } from '@/components/layout/AppShell';
+import { Link } from '@/i18n/navigation';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000';
 
@@ -134,6 +135,24 @@ export function ConnectPage() {
         <p className="mt-10 text-xs text-[var(--text-muted)] text-center max-w-xs">
           {t('noSignupRequired')}
         </p>
+
+        {/* Identidad del negocio + links legales (requerido por Meta y mejora confianza) */}
+        <footer className="mt-8 flex flex-col items-center gap-2 text-center">
+          <nav className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs text-[var(--text-muted)]">
+            <Link href="/privacy" className="hover:text-[var(--text-primary)] underline">
+              Privacidad
+            </Link>
+            <Link href="/terms" className="hover:text-[var(--text-primary)] underline">
+              Términos
+            </Link>
+            <Link href="/data-deletion" className="hover:text-[var(--text-primary)] underline">
+              Eliminar datos
+            </Link>
+          </nav>
+          <p className="text-[11px] text-[var(--text-muted)]">
+            Minibox · Operado por Alexander Eberle · Argentina
+          </p>
+        </footer>
       </div>
     </AppShell>
   );
