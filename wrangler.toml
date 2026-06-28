@@ -21,4 +21,4 @@ NEXT_PUBLIC_API_URL = "https://api.minibox.ar"
 [[d1_databases]]
 binding = "WAITLIST_DB"
 database_name = "minibox-waitlist"
-database_id = "REEMPLAZAR_CON_DATABASE_ID"
+database_id = "dfcf6796-d9dc-4cad-935d-f8480cbcff32"
