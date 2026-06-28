@@ -154,12 +154,6 @@ export function LandingPage() {
               Eliminar datos
             </Link>
           </nav>
-          <p className="text-[11px] text-[var(--text-muted)]">
-            Minibox · Operado por Alexander Eberle · Argentina ·{' '}
-            <a href="mailto:alexander171294@gmail.com" className="underline">
-              alexander171294@gmail.com
-            </a>
-          </p>
         </div>
       </footer>
     </div>

@@ -50,9 +50,6 @@ export function ConnectPage() {
               Eliminar datos
             </Link>
           </nav>
-          <p className="text-[11px] text-[var(--text-muted)]">
-            Minibox · Operado por Alexander Eberle · Argentina
-          </p>
         </footer>
       </div>
     </AppShell>
