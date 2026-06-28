@@ -10,6 +10,7 @@ vi.mock('@/lib/api', () => ({
   updateFaq: vi.fn(),
   updateAccount: vi.fn(),
   assistantChat: vi.fn(),
+  seedOnboarding: vi.fn().mockResolvedValue({ seeded: false, faqsCount: 0 }),
   previewAssistant: vi.fn().mockResolvedValue({ source: 'cache', answer: 'x', confidence: 1, willRespond: true }),
   getAccount: vi.fn().mockResolvedValue({ id: 'acc-1', plan: 'free' }),
 }));

@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getFaqs, updateFaq, updateAccount, assistantChat } from '@/lib/api';
+import { getFaqs, updateFaq, updateAccount, assistantChat, seedOnboarding } from '@/lib/api';
 import type { Faq, ChatMessage } from '@/lib/types';
 import { AppShell } from '@/components/layout/AppShell';
 import { MessageBubble } from '@/components/chat/MessageBubble';
@@ -155,6 +155,22 @@ export function OnboardingView() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chatMessages]);
 
+  // Auto-seed: al llegar al onboarding tras conectar, generamos las FAQs desde
+  // el perfil. Idempotente server-side; solo lo disparamos si no hay FAQs aún.
+  const seedMutation = useMutation({
+    mutationFn: seedOnboarding,
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: ['faqs'] });
+    },
+  });
+  const seedTriggered = useRef(false);
+  useEffect(() => {
+    if (!seedTriggered.current && !faqsLoading && faqs && faqs.length === 0) {
+      seedTriggered.current = true;
+      seedMutation.mutate();
+    }
+  }, [faqsLoading, faqs, seedMutation]);
+
   const updateFaqMutation = useMutation({
     mutationFn: ({ id, data }: { id: string; data: { question: string; answer: string } }) =>
       updateFaq(id, data),
@@ -226,13 +242,16 @@ export function OnboardingView() {
             </div>
           )}
 
-          {faqsLoading && (
-            <div className="flex justify-center py-4">
+          {(faqsLoading || seedMutation.isPending) && (
+            <div className="flex flex-col items-center gap-2 py-4">
               <LoadingPage />
+              {seedMutation.isPending && (
+                <p className="text-sm text-[var(--text-muted)]">{t('analyzingProfile')}</p>
+              )}
             </div>
           )}
 
-          {!faqsLoading && faqs && faqs.length === 0 && (
+          {!faqsLoading && !seedMutation.isPending && faqs && faqs.length === 0 && (
             <div className="text-center text-sm text-[var(--text-muted)] py-4">
               {t('noFaqs')}
             </div>

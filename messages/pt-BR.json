@@ -33,6 +33,7 @@
     "activeDescription": "Seu assistente está respondendo mensagens automaticamente.",
     "inactiveDescription": "As respostas automáticas estão desativadas.",
     "chatPlaceholder": "Digite para modificar as FAQs ou fazer perguntas ao assistente...",
+    "analyzingProfile": "Analisando seu perfil e gerando perguntas…",
     "noFaqs": "Ainda não há FAQs. Você pode adicionar uma na base de conhecimento.",
     "errorMessage": "Houve um erro ao processar sua mensagem. Por favor, tente novamente.",
     "loadingFaqs": "Carregando perguntas frequentes...",
