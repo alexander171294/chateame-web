@@ -1,5 +1,6 @@
 import { setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
+import { Link } from '@/i18n/navigation';
 import { LegalShell, LegalSection } from '@/components/legal/LegalShell';
 import type { Metadata } from 'next';
 
@@ -152,9 +153,9 @@ export default async function PrivacyPage({
           Conservamos los datos mientras la cuenta del Cliente esté activa y durante el plazo
           necesario para cumplir obligaciones legales. Ante la baja de la cuenta o un pedido de
           eliminación, los datos se eliminan según se describe en la página de{' '}
-          <a className="underline" href="/data-deletion">
+          <Link className="underline" href="/data-deletion">
             Eliminación de datos
-          </a>
+          </Link>
           .
         </p>
       </LegalSection>

@@ -1,5 +1,6 @@
 import { setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
+import { Link } from '@/i18n/navigation';
 import { LegalShell, LegalSection } from '@/components/legal/LegalShell';
 import type { Metadata } from 'next';
 
@@ -120,9 +121,9 @@ export default async function TermsPage({
       <LegalSection title="9. Privacidad">
         <p>
           El tratamiento de datos se rige por nuestra{' '}
-          <a className="underline" href="/privacy">
+          <Link className="underline" href="/privacy">
             Política de Privacidad
-          </a>
+          </Link>
           , que forma parte integrante de estos Términos.
         </p>
       </LegalSection>
