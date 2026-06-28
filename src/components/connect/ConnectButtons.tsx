@@ -4,8 +4,6 @@ import React from 'react';
 import { useTranslations } from 'next-intl';
 import { Tooltip } from '@/components/ui/Tooltip';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000';
-
 function InstagramIcon() {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6" aria-hidden="true">
@@ -30,81 +28,211 @@ function WhatsAppIcon() {
   );
 }
 
+type Status = 'idle' | 'submitting' | 'success' | 'error';
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 /**
- * Botones de conexión (Instagram / Facebook / WhatsApp deshabilitado).
- * Reutilizable: se usa en la landing (hero + CTA final) y en la página de conexión.
- * Captura ?ref de la URL y lo propaga al inicio del OAuth (GL3 referral).
+ * Botones de conexión. Durante la beta cerrada, en lugar de iniciar el OAuth
+ * abren un formulario de waitlist que guarda el email en Cloudflare D1
+ * (route handler /api/waitlist del propio Worker). Reusable en landing y connect.
  */
 export function ConnectButtons() {
   const t = useTranslations('Connect');
 
-  const [ref, setRef] = React.useState<string | null>(null);
+  const [open, setOpen] = React.useState(false);
+  const [source, setSource] = React.useState<string>('instagram');
+  const [email, setEmail] = React.useState('');
+  const [status, setStatus] = React.useState<Status>('idle');
+  const [errorMsg, setErrorMsg] = React.useState('');
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
+  const openModal = (platform: string) => {
+    setSource(platform);
+    setStatus('idle');
+    setErrorMsg('');
+    setEmail('');
+    setOpen(true);
+  };
+  const closeModal = () => setOpen(false);
+
   React.useEffect(() => {
-    const r = new URLSearchParams(window.location.search).get('ref');
-    if (r) setRef(r);
-  }, []);
-  const startUrl = (platform: string) =>
-    `${API_URL}/auth/meta/${platform}/start${ref ? `?ref=${encodeURIComponent(ref)}` : ''}`;
+    if (open) {
+      const onKey = (e: KeyboardEvent) => e.key === 'Escape' && closeModal();
+      window.addEventListener('keydown', onKey);
+      setTimeout(() => inputRef.current?.focus(), 50);
+      return () => window.removeEventListener('keydown', onKey);
+    }
+  }, [open]);
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const value = email.trim();
+    if (!EMAIL_RE.test(value)) {
+      setStatus('error');
+      setErrorMsg(t('betaErrorEmail'));
+      return;
+    }
+    setStatus('submitting');
+    try {
+      const res = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: value, source }),
+      });
+      if (!res.ok) throw new Error('bad status');
+      setStatus('success');
+    } catch {
+      setStatus('error');
+      setErrorMsg(t('betaError'));
+    }
+  };
 
   return (
-    <div className="w-full max-w-sm flex flex-col gap-3">
-      <a
-        href={startUrl('instagram')}
-        className={[
-          'flex items-center justify-center gap-3',
-          'w-full px-6 py-4 rounded-[var(--radius-lg)]',
-          'font-semibold text-base text-white',
-          'transition-all duration-[var(--transition)]',
-          'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-violet)]',
-          'shadow-[var(--shadow-md)] hover:shadow-[var(--shadow-lg)]',
-          'hover:opacity-90 active:scale-[0.98]',
-        ].join(' ')}
-        style={{
-          background: 'linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
-        }}
-      >
-        <InstagramIcon />
-        {t('connectInstagram')}
-      </a>
-
-      <a
-        href={startUrl('facebook')}
-        className={[
-          'flex items-center justify-center gap-3',
-          'w-full px-6 py-4 rounded-[var(--radius-lg)]',
-          'font-semibold text-base text-white',
-          'bg-[#1877F2] hover:bg-[#1666d9]',
-          'transition-all duration-[var(--transition)]',
-          'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-violet)]',
-          'shadow-[var(--shadow-md)] hover:shadow-[var(--shadow-lg)]',
-          'active:scale-[0.98]',
-        ].join(' ')}
-      >
-        <FacebookIcon />
-        {t('connectFacebook')}
-      </a>
-
-      <Tooltip content={t('whatsappTooltip')} position="bottom">
+    <>
+      <div className="w-full max-w-sm flex flex-col gap-3">
         <button
           type="button"
-          disabled
-          aria-disabled="true"
+          onClick={() => openModal('instagram')}
           className={[
             'flex items-center justify-center gap-3',
             'w-full px-6 py-4 rounded-[var(--radius-lg)]',
-            'font-semibold text-base',
-            'bg-[var(--bg-tertiary)] text-[var(--text-muted)]',
-            'border border-[var(--border-color)]',
-            'cursor-not-allowed opacity-60',
+            'font-semibold text-base text-white',
+            'transition-all duration-[var(--transition)]',
+            'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-violet)]',
+            'shadow-[var(--shadow-md)] hover:shadow-[var(--shadow-lg)]',
+            'hover:opacity-90 active:scale-[0.98]',
+          ].join(' ')}
+          style={{
+            background: 'linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
+          }}
+        >
+          <InstagramIcon />
+          {t('connectInstagram')}
+        </button>
+
+        <button
+          type="button"
+          onClick={() => openModal('facebook')}
+          className={[
+            'flex items-center justify-center gap-3',
+            'w-full px-6 py-4 rounded-[var(--radius-lg)]',
+            'font-semibold text-base text-white',
+            'bg-[#1877F2] hover:bg-[#1666d9]',
+            'transition-all duration-[var(--transition)]',
+            'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-violet)]',
+            'shadow-[var(--shadow-md)] hover:shadow-[var(--shadow-lg)]',
+            'active:scale-[0.98]',
           ].join(' ')}
         >
-          <WhatsAppIcon />
-          {t('connectWhatsApp')}
-          <span className="ml-auto text-xs font-normal px-2 py-0.5 bg-[var(--border-color)] rounded-full">
-            {t('comingSoon')}
-          </span>
+          <FacebookIcon />
+          {t('connectFacebook')}
         </button>
-      </Tooltip>
-    </div>
+
+        <Tooltip content={t('whatsappTooltip')} position="bottom">
+          <button
+            type="button"
+            disabled
+            aria-disabled="true"
+            className={[
+              'flex items-center justify-center gap-3',
+              'w-full px-6 py-4 rounded-[var(--radius-lg)]',
+              'font-semibold text-base',
+              'bg-[var(--bg-tertiary)] text-[var(--text-muted)]',
+              'border border-[var(--border-color)]',
+              'cursor-not-allowed opacity-60',
+            ].join(' ')}
+          >
+            <WhatsAppIcon />
+            {t('connectWhatsApp')}
+            <span className="ml-auto text-xs font-normal px-2 py-0.5 bg-[var(--border-color)] rounded-full">
+              {t('comingSoon')}
+            </span>
+          </button>
+        </Tooltip>
+      </div>
+
+      {open && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="beta-title"
+          onClick={closeModal}
+        >
+          <div
+            className="w-full max-w-md bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-[var(--radius-lg)] shadow-[var(--shadow-lg)] p-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-start justify-between gap-4 mb-2">
+              <h2 id="beta-title" className="text-xl font-bold text-[var(--text-primary)]">
+                {t('betaTitle')}
+              </h2>
+              <button
+                type="button"
+                onClick={closeModal}
+                aria-label={t('betaClose')}
+                className="text-[var(--text-muted)] hover:text-[var(--text-primary)] text-xl leading-none"
+              >
+                ×
+              </button>
+            </div>
+
+            {status === 'success' ? (
+              <div className="py-6 text-center flex flex-col items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-[var(--color-green)] flex items-center justify-center text-white text-2xl">
+                  ✓
+                </div>
+                <p className="font-semibold text-[var(--text-primary)]">{t('betaSuccessTitle')}</p>
+                <p className="text-sm text-[var(--text-secondary)]">{t('betaSuccess')}</p>
+                <button
+                  type="button"
+                  onClick={closeModal}
+                  className="mt-2 px-5 py-2 rounded-[var(--radius-md)] font-semibold text-white bg-[var(--color-green)] hover:opacity-90"
+                >
+                  {t('betaCloseButton')}
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={submit} className="flex flex-col gap-4">
+                <p className="text-sm text-[var(--text-secondary)]">{t('betaSubtitle')}</p>
+                <input
+                  ref={inputRef}
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    if (status === 'error') setStatus('idle');
+                  }}
+                  placeholder={t('betaEmailPlaceholder')}
+                  className={[
+                    'w-full px-4 py-3 rounded-[var(--radius-md)] text-[var(--text-primary)]',
+                    'bg-[var(--bg-secondary)] border border-[var(--border-color)]',
+                    'focus:outline-none focus:ring-2 focus:ring-[var(--color-violet)]',
+                  ].join(' ')}
+                />
+                {status === 'error' && (
+                  <p className="text-sm text-[var(--color-red)]" role="alert">
+                    {errorMsg}
+                  </p>
+                )}
+                <button
+                  type="submit"
+                  disabled={status === 'submitting'}
+                  className={[
+                    'w-full px-6 py-3 rounded-[var(--radius-lg)] font-semibold text-white',
+                    'bg-[var(--color-green)] hover:opacity-90 active:scale-[0.98]',
+                    'disabled:opacity-60 disabled:cursor-not-allowed transition-all',
+                  ].join(' ')}
+                >
+                  {status === 'submitting' ? t('betaSubmitting') : t('betaSubmit')}
+                </button>
+                <p className="text-[11px] text-[var(--text-muted)] text-center">{t('betaPrivacy')}</p>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
+    </>
   );
 }

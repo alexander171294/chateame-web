@@ -30,16 +30,22 @@ describe('ConnectPage', () => {
     expect(screen.getByText('subtitle')).toBeInTheDocument();
   });
 
-  it('renders Instagram connect link with correct OAuth href', () => {
+  it('renders Instagram connect button', () => {
     render(<ConnectPage />);
-    const igLink = screen.getByRole('link', { name: /connectInstagram/i });
-    expect(igLink).toHaveAttribute('href', expect.stringContaining('/auth/meta/instagram/start'));
+    expect(screen.getByRole('button', { name: /connectInstagram/i })).toBeInTheDocument();
   });
 
-  it('renders Facebook connect link with correct OAuth href', () => {
+  it('renders Facebook connect button', () => {
     render(<ConnectPage />);
-    const fbLink = screen.getByRole('link', { name: /connectFacebook/i });
-    expect(fbLink).toHaveAttribute('href', expect.stringContaining('/auth/meta/facebook/start'));
+    expect(screen.getByRole('button', { name: /connectFacebook/i })).toBeInTheDocument();
+  });
+
+  it('clicking Instagram opens the closed-beta waitlist modal', async () => {
+    render(<ConnectPage />);
+    await userEvent.click(screen.getByRole('button', { name: /connectInstagram/i }));
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    expect(screen.getByText('betaTitle')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('betaEmailPlaceholder')).toBeInTheDocument();
   });
 
   it('renders disabled WhatsApp button', () => {
@@ -75,9 +81,14 @@ describe('ConnectPage', () => {
     expect(screen.getByText('noSignupRequired')).toBeInTheDocument();
   });
 
-  it('uses NEXT_PUBLIC_API_URL env var in OAuth links (default localhost:3000)', () => {
+  it('submits the waitlist email to /api/waitlist', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true });
+    vi.stubGlobal('fetch', fetchMock);
     render(<ConnectPage />);
-    const igLink = screen.getByRole('link', { name: /connectInstagram/i });
-    expect(igLink.getAttribute('href')).toContain('localhost:3000');
+    await userEvent.click(screen.getByRole('button', { name: /connectFacebook/i }));
+    await userEvent.type(screen.getByPlaceholderText('betaEmailPlaceholder'), 'test@example.com');
+    await userEvent.click(screen.getByRole('button', { name: 'betaSubmit' }));
+    expect(fetchMock).toHaveBeenCalledWith('/api/waitlist', expect.objectContaining({ method: 'POST' }));
+    vi.unstubAllGlobals();
   });
 });

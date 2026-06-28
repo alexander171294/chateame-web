@@ -15,3 +15,10 @@ routes = [
 # NEXT_PUBLIC_API_URL must be set in the Cloudflare Pages project environment variables.
 # Production value: https://api.minibox.ar
 NEXT_PUBLIC_API_URL = "https://api.minibox.ar"
+
+# Waitlist de beta cerrada: el endpoint /api/waitlist guarda los emails acá.
+# Crear con: wrangler d1 create minibox-waitlist  → pegar el database_id.
+[[d1_databases]]
+binding = "WAITLIST_DB"
+database_name = "minibox-waitlist"
+database_id = "REEMPLAZAR_CON_DATABASE_ID"

@@ -11,9 +11,21 @@
     "connectWhatsApp": "Conectar WhatsApp",
     "whatsappTooltip": "Em breve · disponível no plano com assistência",
     "comingSoon": "Em breve",
-    "noSignupRequired": "",
+    "noSignupRequired": "Estamos em beta fechada. Inscreva-se e a gente avisa assim que tiver vaga.",
     "metaTitle": "Minibox — Responda suas DMs automaticamente",
-    "metaDescription": "Conecte Instagram e Facebook em 3 toques. Seu assistente de IA responde automaticamente às mensagens repetitivas."
+    "metaDescription": "Conecte Instagram e Facebook em 3 toques. Seu assistente de IA responde automaticamente às mensagens repetitivas.",
+    "betaTitle": "Beta fechada",
+    "betaSubtitle": "Estamos em beta fechada. Deixe seu e-mail e avisamos assim que você tiver acesso.",
+    "betaEmailPlaceholder": "voce@email.com",
+    "betaSubmit": "Quero entrar",
+    "betaSubmitting": "Enviando…",
+    "betaSuccessTitle": "Pronto!",
+    "betaSuccess": "Você está na lista. A gente te avisa assim que abrir o acesso.",
+    "betaErrorEmail": "Digite um e-mail válido.",
+    "betaError": "Não conseguimos salvar seu e-mail. Tente de novo em um instante.",
+    "betaClose": "Fechar",
+    "betaCloseButton": "Pronto",
+    "betaPrivacy": "Usamos seu e-mail só para avisar do acesso. Sem spam."
   },
   "Nav": {
     "conversations": "Conversas",
